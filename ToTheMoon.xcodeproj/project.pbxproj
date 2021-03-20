@@ -11,6 +11,7 @@
 		4B5F71CD25EB351C00EC13E6 /* feature_extractor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F71CB25EB351C00EC13E6 /* feature_extractor.cpp */; };
 		4B6A3D9B25F71A8F001C991D /* baddies.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A3D9925F71A8F001C991D /* baddies.cpp */; };
 		4B6A3DA025F973E4001C991D /* baddies_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A3D9E25F973E4001C991D /* baddies_factory.cpp */; };
+		4BFAF4A225FD3503007DF449 /* format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF4A125FD3503007DF449 /* format.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,7 +30,6 @@
 		4B5F71BE25EB2D1B00EC13E6 /* ToTheMoon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ToTheMoon; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B5F71C125EB2D1B00EC13E6 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		4B5F71C825EB31DE00EC13E6 /* ToTheMoon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ToTheMoon.entitlements; sourceTree = "<group>"; };
-		4B5F71C925EB331000EC13E6 /* song.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = song.mp4; path = ToTheMoon/song.mp4; sourceTree = "<group>"; };
 		4B5F71CB25EB351C00EC13E6 /* feature_extractor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = feature_extractor.cpp; sourceTree = "<group>"; };
 		4B5F71CC25EB351C00EC13E6 /* feature_extractor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = feature_extractor.hpp; sourceTree = "<group>"; };
 		4B5F71CF25EBF7DB00EC13E6 /* ship_factory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ship_factory.hpp; sourceTree = "<group>"; };
@@ -40,6 +40,13 @@
 		4B6A3D9F25F973E4001C991D /* baddies_factory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = baddies_factory.hpp; sourceTree = "<group>"; };
 		4B6A3DA125FB0F44001C991D /* moon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = moon.png; path = ToTheMoon/moon.png; sourceTree = "<group>"; };
 		4B6A3DA325FB0F6D001C991D /* background.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = background.hpp; sourceTree = "<group>"; };
+		4B6A3DA725FC57A3001C991D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B6A3DA825FC5CF4001C991D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B9329BB2601499600F2742D /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
+		4BB96EE4260503300080BBAA /* Tv_hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tv_hd.png; sourceTree = "<group>"; };
+		4BFAF49F25FD309F007DF449 /* tothemoon.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = tothemoon.mp4; sourceTree = "<group>"; };
+		4BFAF4A025FD3503007DF449 /* format.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = format.hpp; sourceTree = "<group>"; };
+		4BFAF4A125FD3503007DF449 /* format.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = format.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +63,9 @@
 		4B5F71B525EB2D1B00EC13E6 = {
 			isa = PBXGroup;
 			children = (
+				4B6A3DA725FC57A3001C991D /* Info.plist */,
 				4B5F71C025EB2D1B00EC13E6 /* ToTheMoon */,
 				4B5F71BF25EB2D1B00EC13E6 /* Products */,
-				4B5F71C925EB331000EC13E6 /* song.mp4 */,
 				4B6A3DA125FB0F44001C991D /* moon.png */,
 				4B6A3D9D25F71B6E001C991D /* bitcoin.png */,
 			);
@@ -75,16 +82,22 @@
 		4B5F71C025EB2D1B00EC13E6 /* ToTheMoon */ = {
 			isa = PBXGroup;
 			children = (
+				4BB96EE4260503300080BBAA /* Tv_hd.png */,
+				4B9329BB2601499600F2742D /* images */,
+				4BFAF49F25FD309F007DF449 /* tothemoon.mp4 */,
 				4B5F71C825EB31DE00EC13E6 /* ToTheMoon.entitlements */,
 				4B5F71C125EB2D1B00EC13E6 /* main.cpp */,
 				4B5F71CB25EB351C00EC13E6 /* feature_extractor.cpp */,
 				4B5F71CC25EB351C00EC13E6 /* feature_extractor.hpp */,
 				4B5F71CF25EBF7DB00EC13E6 /* ship_factory.hpp */,
+				4BFAF4A125FD3503007DF449 /* format.cpp */,
+				4BFAF4A025FD3503007DF449 /* format.hpp */,
 				4B6A3D9925F71A8F001C991D /* baddies.cpp */,
 				4B6A3D9A25F71A8F001C991D /* baddies.hpp */,
 				4B6A3D9E25F973E4001C991D /* baddies_factory.cpp */,
 				4B6A3D9F25F973E4001C991D /* baddies_factory.hpp */,
 				4B6A3DA325FB0F6D001C991D /* background.hpp */,
+				4B6A3DA825FC5CF4001C991D /* Info.plist */,
 			);
 			path = ToTheMoon;
 			sourceTree = "<group>";
@@ -149,6 +162,7 @@
 				4B5F71C225EB2D1B00EC13E6 /* main.cpp in Sources */,
 				4B5F71CD25EB351C00EC13E6 /* feature_extractor.cpp in Sources */,
 				4B6A3D9B25F71A8F001C991D /* baddies.cpp in Sources */,
+				4BFAF4A225FD3503007DF449 /* format.cpp in Sources */,
 				4B6A3DA025F973E4001C991D /* baddies_factory.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,6 +203,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -261,6 +276,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -296,10 +312,13 @@
 		4B5F71C625EB2D1B00EC13E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLY_RULES_IN_COPY_FILES = NO;
 				CODE_SIGN_ENTITLEMENTS = ToTheMoon/ToTheMoon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8GFL8HL25V;
 				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_PREPROCESS = NO;
 				NEW_SETTING = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -308,10 +327,13 @@
 		4B5F71C725EB2D1B00EC13E6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLY_RULES_IN_COPY_FILES = NO;
 				CODE_SIGN_ENTITLEMENTS = ToTheMoon/ToTheMoon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8GFL8HL25V;
 				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_PREPROCESS = NO;
 				NEW_SETTING = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
