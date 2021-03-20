@@ -209,8 +209,8 @@ int main(int argc, const char * argv[]) {
             
             if(count_frames < intro_length ){
                 
-                rand_width = count_frames/25 + 2;
-                rand_height = count_frames/25 + 2;
+                rand_width = count_frames/50 + 2;
+                rand_height = count_frames/50 + 2;
             }
             
             if(x1 > rectangle_width_max && y1 > rectangle_height_max){
