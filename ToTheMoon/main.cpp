@@ -235,8 +235,36 @@ int main(int argc, const char * argv[]) {
             
         }
         
+        cv::Mat woman_canny;
+        cv::Canny(woman_tmp, woman_canny, 100, 200);
+        
+        cv::Mat woman_r;
+        cv::Mat bgr_chan2[3];
+        cv::cvtColor(woman_tmp, woman_r, cv::COLOR_GRAY2BGR);
+        cv::split(woman_r, bgr_chan2); // split the BGR channesl
+        bgr_chan2[1] = cv::Mat::zeros(woman_r.rows, woman_r.cols, CV_8UC1);
+        bgr_chan2[0] = cv::Mat::zeros(woman_r.rows, woman_r.cols, CV_8UC1);
+        cv::merge(bgr_chan2, 3, woman_r); // pack the image
+                
+        cv::Mat woman_bg;
+        cv::Mat bgr_chan01[3];
+        cv::cvtColor(woman_tmp, woman_bg, cv::COLOR_GRAY2BGR);
+        cv::split(woman_bg, bgr_chan01); // split the BGR channesl
+        bgr_chan01[2] = cv::Mat::zeros(woman_bg.rows, woman_bg.cols,CV_8UC1);
+        cv::merge(bgr_chan01, 3, woman_bg); // pack the image
+                
+        double alpha = 0.4; double beta;
+        beta = 1 - alpha;
+        
         cv::Mat mix;
-
+        
+        cv::Mat transfer_red, transfer_blue_green;
+        cv::cvtColor(transfer, mix, cv::COLOR_GRAY2BGR);
+        cv::cvtColor(transfer, transfer_red, cv::COLOR_GRAY2BGR);
+        cv::cvtColor(transfer, transfer_blue_green, cv::COLOR_GRAY2BGR);
+        
+        //remove channel data from
+        cv::cvtColor(woman_tmp, woman_bg, cv::COLOR_GRAY2BGR);
 
         
         //if(count_frames > intro_length ){
@@ -244,37 +272,6 @@ int main(int argc, const char * argv[]) {
             std::vector<cv::Rect> eyes_in_pic = detectEyes(woman_tmp);
 
             for(size_t eye = 0; eye < eyes_in_pic.size(); eye++){
-                
-                cv::Mat woman_canny;
-                
-                cv::Canny(woman_tmp(eyes_in_pic[eye]), woman_canny, 100, 200);
-                                
-                cv::Mat woman_r;
-                cv::Mat bgr_chan2[3];
-                cv::cvtColor(woman_canny, woman_r, cv::COLOR_GRAY2BGR);
-                cv::split(woman_r, bgr_chan2); // split the BGR channesl
-                bgr_chan2[1] = cv::Mat::zeros(woman_r.rows, woman_r.cols, CV_8UC1);
-                bgr_chan2[0] = cv::Mat::zeros(woman_r.rows, woman_r.cols, CV_8UC1);
-                cv::merge(bgr_chan2, 3, woman_r); // pack the image
-                        
-                cv::Mat woman_bg;
-                cv::Mat bgr_chan01[3];
-                cv::cvtColor(woman_canny, woman_bg, cv::COLOR_GRAY2BGR);
-                cv::split(woman_bg, bgr_chan01); // split the BGR channesl
-                bgr_chan01[2] = cv::Mat::zeros(woman_bg.rows, woman_bg.cols,CV_8UC1);
-                cv::merge(bgr_chan01, 3, woman_bg); // pack the image
-                        
-                double alpha = 0.4; double beta;
-                beta = 1 - alpha;
-                                
-                cv::Mat transfer_red, transfer_blue_green;
-                cv::cvtColor(transfer, mix, cv::COLOR_GRAY2BGR);
-                cv::cvtColor(transfer, transfer_red, cv::COLOR_GRAY2BGR);
-                cv::cvtColor(transfer, transfer_blue_green, cv::COLOR_GRAY2BGR);
-                
-                //remove channel data from
-                cv::cvtColor(woman_tmp, woman_bg, cv::COLOR_GRAY2BGR);
-
                 
                 int x = eyes_in_pic[eye].x;
                 int y = eyes_in_pic[eye].y;
@@ -289,7 +286,7 @@ int main(int argc, const char * argv[]) {
                     cv::Rect r_rect = cv::Rect(x - three_d_sep_x, y - three_d_sep_y, width + 2 * three_d_sep_x, height + three_d_sep_y * 2);
                     
                     //woman(eyes_in_pic[eye]).copyTo(transfer(eyes_in_pic[eye]));
-                    woman_r.copyTo(transfer_red(r_rect)); //gray
+                    woman_r(r_rect).copyTo(transfer_red(r_rect)); //gray
                     woman_bg(bg_rect).copyTo(transfer_blue_green(bg_rect)); //gray
                     
                     addWeighted( transfer_red, alpha, transfer_blue_green, beta, 0.0, mix);
@@ -354,7 +351,7 @@ int main(int argc, const char * argv[]) {
         woman.copyTo(canvas(cv::Rect(tv_edge_left, tv_edge_top, woman.cols, woman.rows)));
         
         std::cout << "canvas: " << canvas.channels() << std::endl;
-        //std::cout << "mix: " << mix.channels() << std::endl;
+        std::cout << "mix: " << mix.channels() << std::endl;
         std::cout << "frame# : " << count_frames << std::endl;
 
         mix.copyTo(canvas(cv::Rect(tv_edge_left, tv_edge_top, mix.cols, mix.rows)));
