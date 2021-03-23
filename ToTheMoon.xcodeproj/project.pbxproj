@@ -11,6 +11,7 @@
 		4B5F71CD25EB351C00EC13E6 /* feature_extractor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F71CB25EB351C00EC13E6 /* feature_extractor.cpp */; };
 		4B6A3D9B25F71A8F001C991D /* baddies.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A3D9925F71A8F001C991D /* baddies.cpp */; };
 		4B6A3DA025F973E4001C991D /* baddies_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A3D9E25F973E4001C991D /* baddies_factory.cpp */; };
+		4BB96EE6260785AB0080BBAA /* background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BB96EE5260785AB0080BBAA /* background.cpp */; };
 		4BFAF4A225FD3503007DF449 /* format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF4A125FD3503007DF449 /* format.cpp */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,8 @@
 		4B6A3DA825FC5CF4001C991D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B9329BB2601499600F2742D /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		4BB96EE4260503300080BBAA /* Tv_hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tv_hd.png; sourceTree = "<group>"; };
+		4BB96EE5260785AB0080BBAA /* background.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = background.cpp; sourceTree = "<group>"; };
+		4BB96EE726083C240080BBAA /* moon3d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moon3d.png; sourceTree = "<group>"; };
 		4BFAF49F25FD309F007DF449 /* tothemoon.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = tothemoon.mp4; sourceTree = "<group>"; };
 		4BFAF4A025FD3503007DF449 /* format.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = format.hpp; sourceTree = "<group>"; };
 		4BFAF4A125FD3503007DF449 /* format.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = format.cpp; sourceTree = "<group>"; };
@@ -96,7 +99,9 @@
 				4B6A3D9A25F71A8F001C991D /* baddies.hpp */,
 				4B6A3D9E25F973E4001C991D /* baddies_factory.cpp */,
 				4B6A3D9F25F973E4001C991D /* baddies_factory.hpp */,
+				4BB96EE5260785AB0080BBAA /* background.cpp */,
 				4B6A3DA325FB0F6D001C991D /* background.hpp */,
+				4BB96EE726083C240080BBAA /* moon3d.png */,
 				4B6A3DA825FC5CF4001C991D /* Info.plist */,
 			);
 			path = ToTheMoon;
@@ -160,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B5F71C225EB2D1B00EC13E6 /* main.cpp in Sources */,
+				4BB96EE6260785AB0080BBAA /* background.cpp in Sources */,
 				4B5F71CD25EB351C00EC13E6 /* feature_extractor.cpp in Sources */,
 				4B6A3D9B25F71A8F001C991D /* baddies.cpp in Sources */,
 				4BFAF4A225FD3503007DF449 /* format.cpp in Sources */,

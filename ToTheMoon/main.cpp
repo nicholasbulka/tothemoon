@@ -29,6 +29,8 @@ int tv_edge_top = 110;
 int tv_edge_bottom = 222;
 int pause = 14;
 int intro_length = 500;
+int three_d_sep_x = 5;
+int three_d_sep_y = 5;
 
 
 std::vector<cv::Rect> detectEyes( cv::Mat frame_gray )
@@ -55,7 +57,7 @@ int main(int argc, const char * argv[]) {
         return -1;
     };
     
-    cv::VideoCapture stream1(0);
+    //cv::VideoCapture stream1(0);
     
     if (!video.isOpened()) return -1;
     
@@ -89,10 +91,7 @@ int main(int argc, const char * argv[]) {
     int count_frames = 0;
     int count_images = 1;
     cv::Mat gray_mat, prev_gray_mat, gray_mat_des, prev_gray_mat_des;
-    //cv::Mat music_points = cv::Mat::zeros(cv::Size(frame_width, frame_height), CV_8UC3);
-    //cv::Mat music_points_mirror = cv::Mat::zeros(cv::Size(frame_width, frame_height), CV_8UC3);
-    //cv::Mat clear = cv::Mat::zeros(cv::Size(frame_width, frame_height), CV_8UC3);
-    
+
    /*Creator* creator = new ConcreteCreator1();
     Spaceship* level1ss = creator->FactoryMethod();
     Creator* creator2 = new ConcreteCreator2();
@@ -101,7 +100,6 @@ int main(int argc, const char * argv[]) {
     BaddieFactory* badguy_factory = new BaddieFactory(5); */
     KeyPointRecorder* kprecorder = new KeyPointRecorder();
     
-    //cv::Mat canvas = cv::Mat::zeros(cv::Size(2*frame_width, 4*frame_height), CV_8UC3);
     cv::Mat canvas = cv::Mat::zeros(cv::Size(folder_image_width + tv_edge_left + tv_edge_right, folder_image_height + tv_edge_top + tv_edge_bottom), CV_8UC3);
     
     //Create and initialize the VideoWriter object
@@ -163,17 +161,18 @@ int main(int argc, const char * argv[]) {
         
         cv::Mat woman_load = cv::imread(frame_file_path, cv::IMREAD_GRAYSCALE);
         cv::Mat woman_tmp;
+        //cv::Canny(woman_load, woman_load, 100, 200);
         cv::resize(woman_load, woman_tmp, cv::Size(folder_image_width, folder_image_height));
         
-        cv::Mat woman, woman_flip;
+        cv::Mat woman;
         cv::Mat transfer = cv::Mat::zeros(woman_tmp.rows,
                                           woman_tmp.cols,
                                           woman_tmp.type());
-        cv::Mat mask = cv::Mat::ones(woman_tmp.rows,
+        /*cv::Mat mask = cv::Mat::ones(woman_tmp.rows,
                                      woman_tmp.cols,
                                      woman_tmp.type());
-        cv::Mat transfer_flip;
-        cv::copyTo(transfer, transfer_flip, mask);
+          cv::Mat transfer_flip;
+          cv::copyTo(transfer, transfer_flip, mask); */
 
         
         std::vector<cv::KeyPoint>::const_iterator it0 = _keypoints[0].begin(), end0 = _keypoints[0].end();
@@ -236,22 +235,70 @@ int main(int argc, const char * argv[]) {
             
         }
         
-        if(count_frames > intro_length ){
+        cv::Mat mix;
+
+
+        
+        //if(count_frames > intro_length ){
 
             std::vector<cv::Rect> eyes_in_pic = detectEyes(woman_tmp);
 
             for(size_t eye = 0; eye < eyes_in_pic.size(); eye++){
                 
-                woman_tmp(eyes_in_pic[eye]).copyTo(transfer(eyes_in_pic[eye])); //gray
+                cv::Mat woman_canny;
                 
-                //red.
+                cv::Canny(woman_tmp(eyes_in_pic[eye]), woman_canny, 100, 200);
+                                
+                cv::Mat woman_r;
+                cv::Mat bgr_chan2[3];
+                cv::cvtColor(woman_canny, woman_r, cv::COLOR_GRAY2BGR);
+                cv::split(woman_r, bgr_chan2); // split the BGR channesl
+                bgr_chan2[1] = cv::Mat::zeros(woman_r.rows, woman_r.cols, CV_8UC1);
+                bgr_chan2[0] = cv::Mat::zeros(woman_r.rows, woman_r.cols, CV_8UC1);
+                cv::merge(bgr_chan2, 3, woman_r); // pack the image
+                        
+                cv::Mat woman_bg;
+                cv::Mat bgr_chan01[3];
+                cv::cvtColor(woman_canny, woman_bg, cv::COLOR_GRAY2BGR);
+                cv::split(woman_bg, bgr_chan01); // split the BGR channesl
+                bgr_chan01[2] = cv::Mat::zeros(woman_bg.rows, woman_bg.cols,CV_8UC1);
+                cv::merge(bgr_chan01, 3, woman_bg); // pack the image
+                        
+                double alpha = 0.4; double beta;
+                beta = 1 - alpha;
+                                
+                cv::Mat transfer_red, transfer_blue_green;
+                cv::cvtColor(transfer, mix, cv::COLOR_GRAY2BGR);
+                cv::cvtColor(transfer, transfer_red, cv::COLOR_GRAY2BGR);
+                cv::cvtColor(transfer, transfer_blue_green, cv::COLOR_GRAY2BGR);
                 
-                //blue.
+                //remove channel data from
+                cv::cvtColor(woman_tmp, woman_bg, cv::COLOR_GRAY2BGR);
+
+                
+                int x = eyes_in_pic[eye].x;
+                int y = eyes_in_pic[eye].y;
+                int width = eyes_in_pic[eye].width;
+                int height = eyes_in_pic[eye].height;
+                bool greaterThanZero = x - three_d_sep_x > 0 && y - three_d_sep_y > 0;
+                bool lessThanEdge = x + width + 2 * three_d_sep_x < transfer.cols && y + height + three_d_sep_y * 2 < transfer.rows;
+                
+                if(greaterThanZero && lessThanEdge){
+                                    
+                    cv::Rect bg_rect = cv::Rect(x, y, width, height);
+                    cv::Rect r_rect = cv::Rect(x - three_d_sep_x, y - three_d_sep_y, width + 2 * three_d_sep_x, height + three_d_sep_y * 2);
+                    
+                    //woman(eyes_in_pic[eye]).copyTo(transfer(eyes_in_pic[eye]));
+                    woman_r.copyTo(transfer_red(r_rect)); //gray
+                    woman_bg(bg_rect).copyTo(transfer_blue_green(bg_rect)); //gray
+                    
+                    addWeighted( transfer_red, alpha, transfer_blue_green, beta, 0.0, mix);
+                }
+
             }
-        }
+        //}
         
         cv::cvtColor(transfer, woman, cv::COLOR_GRAY2BGR );
-        cv::cvtColor(transfer_flip, woman_flip, cv::COLOR_GRAY2BGR);
 
         kprecorder->keypointsToRecording(count_frames, points_vec);
                                              
@@ -281,8 +328,12 @@ int main(int argc, const char * argv[]) {
                                             music_points.cols,
                                             music_points.rows))); */
 
-        
-        _moon_background.copyTo(canvas(cv::Rect(60, 50, _moon_background.cols, _moon_background.rows)));
+        Moon* moon = new Moon();
+        cv::Mat moonbg = moon->get_moon();
+        int moon_width = moonbg.cols;
+        int moon_height = moonbg.rows;
+        int moon_right_push = 50;
+        int moon_top_spacing = tv_edge_top + 50;
         
         /*resized_live_frame.copyTo(canvas(cv::Rect(1000,
                                                   1000,
@@ -297,7 +348,17 @@ int main(int argc, const char * argv[]) {
         cvtColor(tv_gray, tv, cv::COLOR_GRAY2BGR);
         tv.copyTo(canvas(cv::Rect(0,0, tv.cols, tv.rows)));
 
+
+        //blue_eye.copyTo(canvas(cv::Rect(blue_eye.x, blue_eye.y, blue_eye.width, blue_eye.height)));
+        //red_eye.copyTo(canvas(cv::Rect(red_eye.x, red_eye.y, red_eye.width, red_eye.height)));
         woman.copyTo(canvas(cv::Rect(tv_edge_left, tv_edge_top, woman.cols, woman.rows)));
+        
+        std::cout << "canvas: " << canvas.channels() << std::endl;
+        //std::cout << "mix: " << mix.channels() << std::endl;
+        std::cout << "frame# : " << count_frames << std::endl;
+
+        mix.copyTo(canvas(cv::Rect(tv_edge_left, tv_edge_top, mix.cols, mix.rows)));
+        moonbg.copyTo(canvas(cv::Rect(folder_image_width - moon_width + moon_right_push, moon_top_spacing, moonbg.cols, moonbg.rows)));
                 
         cv::imshow("canvas", canvas);
         

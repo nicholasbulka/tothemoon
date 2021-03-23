@@ -17,9 +17,22 @@
 
 #include <stdio.h>
 
-const std::string _moon_fp = "/Users/nicholasbulka/programming/creativ/ToTheMoon/ToTheMoon/moon.png";
+const std::string _moon_fp = "/Users/nicholasbulka/programming/creativ/ToTheMoon/ToTheMoon/moon3d.png";
 
-cv::Mat _moon_background = cv::imread(_moon_fp, cv::IMREAD_COLOR);
 
+class Moon
+{
+public:
+    
+    cv::Mat _moon_background;
+    cv::Mat get_moon();
+
+    
+private:
+    
+    cv::Mat _moon_loaded = cv::imread(_moon_fp, cv::IMREAD_COLOR);
+    void resize_moon();
+
+};
 
 #endif /* background_hpp */
